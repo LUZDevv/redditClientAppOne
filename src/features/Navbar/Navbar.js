@@ -3,37 +3,46 @@ import './Navbar.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchTerm } from '../../store/redditSlice';
 
-const navBar = () => {
+const NavBar = () => {
+    const [searchTermLocal, setSearchTermLocal] = useState('');
+    const searchTerm = useSelector((state) => state.reddit.searchTerm);
     const dispatch = useDispatch();
-    const searchTerm = useSelector(state => state.reddit.searchTerm);
-    const [search, setSearch] = useState(searchTerm);
-    
-    const handleChange = e => {
-        setSearch(e.target.value);
+  
+    const onSearchTermChange = (e) => {
+      setSearchTermLocal(e.target.value);
     };
-    
-    const handleSubmit = e => {
-        e.preventDefault();
-        dispatch(setSearchTerm(search));
-    };
-    
+  
     useEffect(() => {
-        setSearch(searchTerm);
+      setSearchTermLocal(searchTerm);
     }, [searchTerm]);
-    
+  
+    const onSearchTermSubmit = (e) => {
+      e.preventDefault();
+      dispatch(setSearchTerm(searchTermLocal));
+    };
+  
     return (
-        <div className="navbar">
-        <form onSubmit={handleSubmit}>
+        <header className="navBarContainer">
+          <div className="logo">
+            <p>
+              <strong>Reddit</strong><span>Clientele</span>
+            </p>
+          </div>
+          <form className="search" onSubmit={onSearchTermSubmit}>
             <input
-            type="text"
-            value={search}
-            onChange={handleChange}
-            placeholder="Search Reddit"
+              type="text"
+              placeholder="Search"
+              value={searchTermLocal}
+              onChange={onSearchTermChange}
+              aria-label="Search posts"
             />
-        </form>
-        </div>
-    );
-}
+            <button className="btn btn-primary" type="submit" onClick={onSearchTermSubmit} aria-label="Search">
+              SEARCH
+            </button>
+          </form>
+        </header>
+      );
+    };
 
-export default navBar;
+export default NavBar;
 
