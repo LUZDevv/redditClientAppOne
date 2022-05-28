@@ -1,10 +1,10 @@
 .post-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
   
   .post-container {
-    width: 80%;
+    width: 66%;
   }
   
   .post-details {

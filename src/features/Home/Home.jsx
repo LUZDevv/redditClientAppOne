@@ -29,12 +29,11 @@ const Home = () => {
 
     return getComments;
   };
+  
 
   if (isLoading) {
     return (
-      
         Array(getRandomNumber(3, 10)).fill(<PostLoading />)
-
     );
   }
 
@@ -72,6 +71,20 @@ const Home = () => {
           onToggleComments={onToggleComments(index)}
         />
       ))}
+      <button
+        type="button"
+        onClick={() => 
+          {posts.map((post, index) => (
+            <Post
+              key={post.id}
+              post={post}
+              onToggleComments={onToggleComments(index)}
+            />
+          ))}
+        }
+      >
+        Try again
+      </button>
     </>
   );
 };

@@ -1,7 +1,9 @@
 export const API_ROOT = 'https://www.reddit.com';
 
+export const postsLimit = '?limit=10';
+
 export const getSubredditPosts = async (subreddit) => {
-  const response = await fetch(`${API_ROOT}${subreddit}.json`);
+  const response = await fetch(`${API_ROOT}${subreddit}.json${postsLimit}`);
   const json = await response.json();
 
   return json.data.children.map((post) => post.data);
